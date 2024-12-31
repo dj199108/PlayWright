@@ -35,7 +35,3 @@ npx playwright test example.spec.ts:32
 npx playwright test example.spec.ts
 ```
 
-### Patterns:
-
-* Mock factory pattern.https://dev.to/davelosert/mock-factory-pattern-in-typescript-44l9
-*  
