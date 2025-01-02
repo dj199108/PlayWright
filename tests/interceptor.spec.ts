@@ -8,7 +8,7 @@ test("purchase an item 2", async ({ page }) => {
   });
 
   await page.route(
-    "**/*.{png,jpg,jpeg,svg,css}",
+    "**/*.{png,jpg,jpeg,svg}",
     (route) => route.abort()
   );
 
