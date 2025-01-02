@@ -1,9 +1,9 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master, new-branch ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main, master, new-branch ]
+    branches: [ main, master ]
 jobs:
   test:
     timeout-minutes: 60
@@ -25,4 +25,3 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-        
