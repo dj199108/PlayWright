@@ -34,4 +34,3 @@ npx playwright test example.spec.ts:32
 ```
 npx playwright test example.spec.ts
 ```
-
