@@ -1,25 +1,41 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.49.1-noble'
+            args '-u root:root'
+        }
+    }
     stages {
-        stage('Clone') {
+        stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/dj199108/PlayWright.git'
+                checkout scm: [
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                //userRemoteConfigs: [[url: 'https://github.com/dj199108/PlayWright.git']]
+                ]
             }
         }
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Building...'
+                sh 'npm ci'
             }
         }
-        stage('Test') {
+        stage('Run Playwright Tests') {
             steps {
-                echo 'Testing...'
+                sh 'npx playwright test --reporter=html'
             }
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-            }
+    }
+    post {
+        always {
+            publishHTML([
+                reportName: 'Playwright Test Report',
+                reportDir: 'playwright-report',
+                reportFiles: 'index.html',
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                allowMissing: false
+            ])
         }
     }
 }
